@@ -212,7 +212,7 @@ static int mb1242_probe(struct i2c_client *client, const struct i2c_device_id *i
 
 	mb1242->client = client;
 
-	if (mb1242_detect(&mb1242->work) < 0)
+	if (mb1242_detect(mb1242->work) < 0)
 		goto error;
 
 	INIT_DELAYED_WORK(&mb1242->work, mb1242_work_func);
