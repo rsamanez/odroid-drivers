@@ -185,7 +185,7 @@ static struct attribute_group mb1242_attribute_group = {
 static int mb1242_detect(void)
 {
     u16	raw_distance;
-
+    struct delayed_work	work;
 	struct mb1242_data *mb1242 = container_of((struct delayed_work *)work,
 							struct mb1242_data, work);
 
