@@ -182,10 +182,9 @@ static struct attribute_group mb1242_attribute_group = {
 // I2C client
 //
 //[*]------------------------------------------------------------------------[*]
-static int mb1242_detect(void)
+static int mb1242_detect(struct work_struct *work)
 {
     u16	raw_distance;
-    struct delayed_work	work;
 	struct mb1242_data *mb1242 = container_of((struct delayed_work *)work,
 							struct mb1242_data, work);
 
@@ -213,7 +212,7 @@ static int mb1242_probe(struct i2c_client *client, const struct i2c_device_id *i
 
 	mb1242->client = client;
 
-	if (mb1242_detect() < 0)
+	if (mb1242_detect(&mb1242->work) < 0)
 		goto error;
 
 	INIT_DELAYED_WORK(&mb1242->work, mb1242_work_func);
