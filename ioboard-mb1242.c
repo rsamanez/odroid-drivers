@@ -64,9 +64,7 @@ static int mb1242_i2c_read(const struct i2c_client *client, u8 cmd, u8 *buf, int
 static int mb1242_i2c_write(const struct i2c_client *client, u8 cmd)
 {
 	int err;
-    u8 data;
-    data = 0;
-	err = i2c_smbus_write_byte_data(client, cmd, data);
+	err = i2c_smbus_write_byte(client, cmd);
 	if (!err)
 		return 0;
 
@@ -182,12 +180,9 @@ static struct attribute_group mb1242_attribute_group = {
 // I2C client
 //
 //[*]------------------------------------------------------------------------[*]
-static int mb1242_detect(struct work_struct *work)
+static int mb1242_detect(struct mb1242_data *mb1242)
 {
     u16	raw_distance;
-	struct mb1242_data *mb1242 = container_of((struct delayed_work *)work,
-							struct mb1242_data, work);
-
 	if (mb1242_get_raw_distance(mb1242, &raw_distance)) {
 		return -1;
 	}
@@ -212,7 +207,7 @@ static int mb1242_probe(struct i2c_client *client, const struct i2c_device_id *i
 
 	mb1242->client = client;
 
-	if (mb1242_detect(mb1242->work) < 0)
+	if (mb1242_detect(mb1242) < 0)
 		goto error;
 
 	INIT_DELAYED_WORK(&mb1242->work, mb1242_work_func);

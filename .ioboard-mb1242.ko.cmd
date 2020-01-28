@@ -1,0 +1,1 @@
+cmd_/home/rsamanez/odroid-drivers/ioboard-mb1242.ko := ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /home/rsamanez/odroid-drivers/ioboard-mb1242.ko /home/rsamanez/odroid-drivers/ioboard-mb1242.o /home/rsamanez/odroid-drivers/ioboard-mb1242.mod.o ;  true
