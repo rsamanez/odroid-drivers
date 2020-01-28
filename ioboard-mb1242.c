@@ -115,7 +115,7 @@ static void mb1242_work_func(struct work_struct *work)
 	mb1242->distance = raw_distance;
 
 	if (mb1242->enabled)
-		schedule_delayed_work(&mb2142->work, MB1242_WORK_PERIOD);
+		schedule_delayed_work(&mb1242->work, MB1242_WORK_PERIOD);
 	else {
 		mb1242->distance    = 0;
 	}
